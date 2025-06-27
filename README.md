@@ -416,3 +416,53 @@ Implementar e gerenciar o armazenamento 15-20%
     - Pode solicitar o Azure Data Box que tem 40tb para transferir
  
 Monitorar e manter os recursos do Azure 10-15%
+
+- Configuração de backups de arquivos e pastas
+    - Centro de backup é o local onde gerencia os backups de todos os recursos
+    - Backup é responsabilidade total sua a MS fornece apenas os recursos para isso
+    - MARS é um client que faz backup local
+    - Recovery Service Vault é o local onde os backups serão salvos e para apontar ele como local para salvar o backup é preciso que os recursos estejam na mesma região PODE BOTAR QUANTOS BACKUPS QUISER
+
+![image.png](attachment:3130fa31-ba9f-4063-a7e0-2fd94b761014:image.png)
+
+- Configuração de backups de VMs
+    - Instântaneos são formas de fornecer opção simples e rápida para backup das VmS QUE USAM DISCOS GERENCIAODR para o MABS que não suporte LINUX ou os COFRES para MARS e MABS que ai sim suporta linux
+        - Os snapshots são armazenados no Vault e precisa ta na mesma região
+        - Pode ter retenção de 1 a 5 dias e ai podem ser configurados backups e não snapshots para períodos maiores que isso
+    - Backup de VM é compatível para WIN E LINUX apenas MARS não é
+    - ASR AZ SITE RECOVERY protege de um caso mais grave quando a região toda sofre interrupção fica uma cópia em outra região para subir em caso de falha
+    - Para funcionar o agente tem que estar instalado tanto win quanto linux
+    - Para a restauração de um backup é feito no painel
+    
+    ![image.png](attachment:be63d94f-84e6-4a0e-bd89-3756afe71861:image.png)
+    
+    - 
+
+![image.png](attachment:5a39c50e-425d-466b-a546-a0456cae45dd:image.png)
+
+![image.png](attachment:1e9203fb-bb2f-4286-854a-1096ae0d0efc:image.png)
+
+- Existe a policy Standard que faz backup uma vez por dia e Enhanced que pode fazer até a cada 1h
+- Para excluir o vault tem que parar as rotinas de backup primeiro mesmo se excluir a VM não vai poder excluir o vault ainda assim
+
+- Azure Monitor
+    - Heartbeat pode ser usado para o log analytics consultar
+    - Quando é ativado monitoramento é necessário criar um workspace
+    - Service health mostra os service issues no país todos e como estão a saúde das zonas e quais serviços afetados se estiverem com problema
+    - Os alertas do monitor vão para o AZ Monitor Metricas e Logs que posteriormente segue para as regras dos alertas conforme a ferramenta definida e assim saindo para as ações a serem tomadas
+    - Monitorar Linux é via Syslog
+    - Quando um alerta é reconhecido quer dizer que alguém já está atuando nele
+    - Contém alguns recursos principais para monitor disponibilidade, desempenho, os erros, o uso do seu aplicativo, insights de segurança, etc…
+        - Application Insights: Disponibilidade, desempenho os erros e o uso do seu aplicativo
+        - Insights de Contêiner
+        - Insights de VMs
+        - Insights de Rede
+            
+            ![image.png](attachment:f5e245d6-85aa-4112-82be-607e34045235:image.png)
+            
+    - Métricas X Logs
+        - Métrica são as informações de desempenho e coisa específicas que vc deseja monitorar de forma constante e enviada a um proxy para ser monitorado
+        - Logs são registros constantes de atividades dos recursos, como acesso, erros, instalações, etc…
+    - Os logs podem ser consultados no Log Analytics via KQL dentro do workspace de monitoramento onde estão os recursos que pretende consultar
+
+![image.png](attachment:ec44bf7e-5a19-420a-b94d-4f5d2d2b103e:image.png)
